@@ -103,7 +103,13 @@ export default function Index() {
             ) : (
               <>
                 <p className="text-left text-gray-500">
-                  {'Sign up or '}
+                  <button
+                    className="underline"
+                    onClick={() => setLoginVisible(false)}
+                  >
+                    Sign up
+                  </button>
+                  {' or '}
                   <button
                     className="underline"
                     onClick={() => setLoginVisible(true)}
