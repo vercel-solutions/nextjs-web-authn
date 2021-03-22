@@ -4,7 +4,8 @@ import { magic } from '../lib/magic';
 
 export default function Index() {
   const [user, setUser] = useState();
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
+  const [isLoginLoading, setLoginLoading] = useState(false);
   const [isChrome, setIsChrome] = useState(true);
   const [loginVisible, setLoginVisible] = useState(false);
 
@@ -18,16 +19,20 @@ export default function Index() {
 
     magic.user.isLoggedIn().then(async (magicIsLoggedIn) => {
       if (magicIsLoggedIn) {
+        setLoading(true);
         const metadata = await magic.webauthn.getMetadata();
         setUser(metadata);
+        setLoading(false);
+      } else {
+        setLoading(false);
       }
     });
-  }, [user, magic, isLoading]);
+  }, []);
 
   const register = async (e) => {
     e.preventDefault();
 
-    setLoading(true);
+    setLoginLoading(true);
     try {
       await magic.webauthn.registerNewUser({
         username: e.target.username.value,
@@ -38,23 +43,23 @@ export default function Index() {
       alert(e.message);
     }
 
-    setLoading(false);
+    setLoginLoading(false);
   };
 
   const login = async (e) => {
     e.preventDefault();
 
-    setLoading(true);
+    setLoginLoading(true);
     await magic.webauthn.login({ username: e.target.username.value });
     const metadata = await magic.webauthn.getMetadata();
     setUser(metadata);
-    setLoading(false);
+    setLoginLoading(false);
   };
 
   const logout = async () => {
-    setLoading(true);
+    setLoginLoading(true);
     await magic.user.logout();
-    setLoading(false);
+    setLoginLoading(false);
     setUser(false);
   };
 
@@ -76,16 +81,20 @@ export default function Index() {
           Login with Yubikey or TouchID on your Chrome browser
         </h2>
 
-        <div className="flex flex-wrap items-center justify-around max-w-4xl my-8 sm:w-full bg-white dark:bg-gray-900 rounded-md shadow-xl h-full border border-gray-100 dark:border-gray-900">
+        <div className="flex flex-wrap items-center justify-around max-w-4xl my-8 sm:w-full bg-white dark:bg-gray-900 rounded-md shadow-xl border border-gray-100 dark:border-gray-900">
           <div className="mt-8 mx-8 w-full max-w-[600px]">
-            {user ? (
-              <div className="relative my-4">
-                <pre className="bg-gray-100 dark:bg-gray-800 p-4 rounded text-left text-black dark:text-white w-full max-w-[600px] overflow-scroll">
-                  {`Username: ${user.username}`}
-                </pre>
+            {isLoading ? (
+              <div className="flex items-center justify-center h-[110px]">
+                <LoadingSpinner />
+              </div>
+            ) : user ? (
+              <div className="h-[110px]">
+                <p className="text-left text-gray-500">
+                  {`${user.username}, you are now securely logged in.`}
+                </p>
                 <button
                   onClick={logout}
-                  className="flex items-center justify-center absolute right-2 top-2 px-4 h-10 text-lg border border-black bg-black text-white rounded-md w-28 focus:outline-none focus:ring focus:ring-blue-300 focus:bg-gray-700"
+                  className="flex items-center justify-center px-4 my-4 h-10 text-lg border border-black bg-black text-white rounded-md w-28 focus:outline-none focus:ring focus:ring-blue-300 focus:bg-gray-700"
                   type="submit"
                 >
                   Logout
@@ -121,7 +130,7 @@ export default function Index() {
                     type="submit"
                     disabled={!isChrome}
                   >
-                    {isLoading ? (
+                    {isLoginLoading ? (
                       <LoadingSpinner />
                     ) : loginVisible ? (
                       'Login'
@@ -161,7 +170,7 @@ export default function Index() {
 function LoadingSpinner() {
   return (
     <svg
-      className="animate-spin h-5 w-5 text-gray-100 dark:text-gray-900"
+      className="animate-spin h-5 w-5 text-gray-900 dark:text-gray-100"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
