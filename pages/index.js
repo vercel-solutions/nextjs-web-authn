@@ -150,9 +150,25 @@ export default function Index() {
             <div className="flex flex-col sm:flex-row justify-between items-center">
               <p className="flex items-center my-8 w-full justify-center sm:justify-start text-black dark:text-white">
                 Powered by
-                <img src="/vercel.svg" alt="Vercel Logo" className="h-5 mx-2" />
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://vercel.com"
+                >
+                  <img
+                    src="/vercel.svg"
+                    alt="Vercel Logo"
+                    className="h-5 mx-2"
+                  />
+                </a>
                 and
-                <img src="/magic.svg" alt="Magic Logo" className="h-5 mx-2" />
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://magic.link"
+                >
+                  <img src="/magic.svg" alt="Magic Logo" className="h-5 mx-2" />
+                </a>
               </p>
               <a
                 target="_blank"
