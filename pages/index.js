@@ -46,6 +46,8 @@ export default function Index() {
 
     setLoading(true);
     await magic.webauthn.login({ username: e.target.username.value });
+    const metadata = await magic.webauthn.getMetadata();
+    setUser(metadata);
     setLoading(false);
   };
 
