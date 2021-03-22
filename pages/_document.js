@@ -10,8 +10,7 @@ class MyDocument extends Document {
     const meta = {
       title: 'Web Authn – Next.js and Magic Example',
       description: 'Login with Yubikey or TouchID on your Chrome browser.',
-      image:
-        'https://og-image.vercel.app/**WebAuthn%20Login**%20with%20Magic.png?theme=dark&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-white-logo.svg&images=https%3A%2F%2Fsvgshare.com%2Fi%2FVHH.svg',
+      image: 'https://authn.vercel.app/og.png',
     };
 
     return (
