@@ -8,7 +8,7 @@ This example uses [Magic](http://magic.link/) to allow sign-in using [WebAuthn](
 
 ## Deploy Your Own
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-webauthn&project-name=magic-webauthn&repository-name=magic-webauthn&demo-title=Magic%20WebAuthn&demo-url=https%3A%2F%2Fauthn.vercel.app%2F)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fvercel-solutions%2Fnextjs-web-authn&project-name=magic-webauthn&repository-name=magic-webauthn&demo-title=Magic%20WebAuthn&demo-url=https%3A%2F%2Fauthn.vercel.app)
 
 ## How to use
 

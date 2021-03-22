@@ -32,6 +32,8 @@ export default function Index() {
       await magic.webauthn.registerNewUser({
         username: e.target.username.value,
       });
+      const metadata = await magic.webauthn.getMetadata();
+      setUser(metadata);
     } catch (e) {
       alert(e.message);
     }
@@ -139,7 +141,7 @@ export default function Index() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex rounded focus:outline-none focus:ring focus:ring-blue-300 mb-4 sm:mb-0 min-w-max"
-                href="https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fwith-webauthn&project-name=magic-webauthn&repository-name=magic-webauthn&demo-title=Magic%20WebAuthn&demo-url=https%3A%2F%2Fauthn.vercel.app%2F"
+                href="https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fvercel-solutions%2Fnextjs-web-authn&project-name=magic-webauthn&repository-name=magic-webauthn&demo-title=Magic%20WebAuthn&demo-url=https%3A%2F%2Fauthn.vercel.app"
               >
                 <img
                   src="https://vercel.com/button"
