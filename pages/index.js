@@ -40,7 +40,11 @@ export default function Index() {
       const metadata = await magic.webauthn.getMetadata();
       setUser(metadata);
     } catch (e) {
-      alert(e.message);
+      if (e.message.includes('Username already exist!')) {
+        alert('This username already exists. Please log in below.');
+      } else {
+        alert(e.message);
+      }
     }
 
     setLoginLoading(false);
@@ -50,9 +54,16 @@ export default function Index() {
     e.preventDefault();
 
     setLoginLoading(true);
-    await magic.webauthn.login({ username: e.target.username.value });
-    const metadata = await magic.webauthn.getMetadata();
-    setUser(metadata);
+    try {
+      await magic.webauthn.login({
+        username: e.target.username.value,
+      });
+      const metadata = await magic.webauthn.getMetadata();
+      setUser(metadata);
+    } catch (e) {
+      alert('There was an error logging in. Please try again.');
+    }
+
     setLoginLoading(false);
   };
 
@@ -85,7 +96,7 @@ export default function Index() {
           <div className="mt-8 mx-8 w-full max-w-[600px]">
             {isLoading ? (
               <div className="flex items-center justify-center h-[110px]">
-                <LoadingSpinner />
+                <LoadingSpinner className="animate-spin h-5 w-5 dark:text-gray-100 text-gray-900" />
               </div>
             ) : user ? (
               <div className="h-[110px]">
@@ -137,7 +148,7 @@ export default function Index() {
                     disabled={!isChrome}
                   >
                     {isLoginLoading ? (
-                      <LoadingSpinner />
+                      <LoadingSpinner className="animate-spin h-5 w-5 text-gray-100" />
                     ) : loginVisible ? (
                       'Login'
                     ) : (
@@ -189,10 +200,10 @@ export default function Index() {
   );
 }
 
-function LoadingSpinner() {
+function LoadingSpinner({ className }) {
   return (
     <svg
-      className="animate-spin h-5 w-5 text-gray-900 dark:text-gray-100"
+      className={className}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
